@@ -162,3 +162,48 @@ zlib
 [Zend Modules]
 Zend OPcache
 ```
+
+## PHP + Phalcon + Nginx + Xdebug
+
+`phalcon-php72-fpm-nginx-xdebug` is almost the same as `phalcon-php72-fpm-nginx` except it includes [XDebug](https://xdebug.org/index.php) and also some configuration differences.
+
+### Components Details
+
+**Phalcon Version**: 3.4.1
+
+**Phalcon Developer Tools Version**: 3.4.0
+
+**Nginx Version**: 1.15.6
+
+**Composer Version**: 1.7.3
+
+**PHPUnit Version**: 6.5.13
+
+**Xdebug Version**: 2.6.1
+
+**Default Timezone**: Asia/Bangkok
+
+### Nginx Configuration Notes
+
+- `nginx.conf` defines timeout as 3600 seconds.
+
+```
+http {
+    ...
+    fastcgi_connect_timeout 3600s;
+    fastcgi_send_timeout 3600s;
+    fastcgi_read_timeout 3600s;
+    ...
+}
+```
+
+### PHP INI Notes
+
+- `php.ini` defines execution timeout as 3600 seconds.
+
+```
+...
+max_execution_time = 3600
+default_socket_timeout = 3600
+...
+```
