@@ -44,9 +44,40 @@ Collection of dockerfiles
 ### How to build the image
 
 ```sh
+# Command Structure
 $ cd [project_location]/dockerfile/phalcon-php72-fpm-nginx
-$ docker build -f phalcon.dockerfile -t [your_namespace]/phalcon-php72-fpm-nginx .
+$ docker build --no-cache -f phalcon.dockerfile -t [your_namespace]/phalcon-php72-fpm-nginx .
 $ docker push [your_namespace]/phalcon-php72-fpm-nginx
+
+# This project example:
+$ cd /opt/src/dockerfile/phalcon-php72-fpm-nginx
+$ docker build --no-cache -f phalcon.dockerfile -t kamolcu/phalcon-php72-fpm-nginx .
+$ docker push kamolcu/phalcon-php72-fpm-nginx
+
+```
+
+### How to use this image as a command line
+
+- Run composer command.
+
+```sh
+# Example: Th project directory is at /opt/src/project
+# Assuming composer.json is at /opt/src/project
+$ docker run --rm -v /opt/src/project:/opt/src/project \
+-w /opt/src/project kamolcu/phalcon-php72-fpm-nginx \
+php -d allow_url_fopen=on /usr/local/bin/composer update --optimize-autoloader
+
+```
+
+- Run PHPUnit command.
+
+```sh
+# Example: The project directory is at /opt/src/project
+# Assuming phpunit.xml is at /opt/src/project
+$ docker run --rm -v /opt/src/project:/opt/src/project \
+-w /opt/src/project kamolcu/phalcon-php72-fpm-nginx \
+phpunit --configuration phpunit.xml
+
 ```
 
 ### Nginx Configuration Notes
@@ -206,4 +237,14 @@ http {
 max_execution_time = 3600
 default_socket_timeout = 3600
 ...
+```
+
+### Run PHPUnit with code coverage
+
+```sh
+# Example: The project directory is at /opt/src/project
+# Assuming phpunit.xml is at /opt/src/project
+$ docker run --rm -v /opt/src/project:/opt/src/project \
+-w /opt/src/project kamolcu/phalcon-php72-fpm-nginx-xdebug \
+phpunit --configuration phpunit.xml --coverage-html /opt/src/project/build/coverage
 ```
