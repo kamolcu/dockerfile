@@ -21,17 +21,15 @@ Collection of dockerfiles
 
 ### Components Details
 
-**Phalcon Version**: 3.4.1
+| Component               | Version |
+| ----------------------- | ------: |
+| Phalcon                 | 3.4.1   |
+| Phalcon Developer Tools | 3.4.0   |
+| Nginx                   | 3.4.1   |
+| Composer                | 3.4.1   |
+| PHPUnit                 | 3.4.1   |
 
-**Phalcon Developer Tools Version**: 3.4.0
-
-**Nginx Version**: 1.15.6
-
-**Composer Version**: 1.7.3
-
-**PHPUnit Version**: 6.5.13
-
-**Default Timezone**: Asia/Bangkok
+| Default Timezone | Asia/Bangkok |
 
 ### How to use this image
 
