@@ -25,9 +25,9 @@ Collection of dockerfiles
 | ----------------------- | ------: |
 | Phalcon                 | 3.4.1   |
 | Phalcon Developer Tools | 3.4.0   |
-| Nginx                   | 3.4.1   |
-| Composer                | 3.4.1   |
-| PHPUnit                 | 3.4.1   |
+| Nginx                   | 1.15.6  |
+| Composer                | 1.7.3   |
+| PHPUnit                 | 6.5.13  |
 
 
 | Configuration    | Value        |
