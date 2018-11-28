@@ -29,6 +29,9 @@ Collection of dockerfiles
 | Composer                | 3.4.1   |
 | PHPUnit                 | 3.4.1   |
 
+
+| Configuration    | Value        |
+| ---------------- | :----------: |
 | Default Timezone | Asia/Bangkok |
 
 ### How to use this image
