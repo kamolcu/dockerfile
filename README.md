@@ -249,3 +249,29 @@ $ docker run --rm -v /opt/src/project:/opt/src/project \
 -w /opt/src/project kamolcu/phalcon-php72-fpm-nginx-xdebug \
 phpunit --configuration phpunit.xml --coverage-html /opt/src/project/build/coverage
 ```
+
+
+## Django + Python3.6 + Nginx + Gunicorn
+
+### Files
+- Dockerfile: `django-python36/django.dockerfile`
+- Nginx Configuration: `django-python36/conf/nginx.conf` is copied into the docker image at `/etc/nginx/nginx.conf`.
+  - `access_log off`
+  - `server_tokens off`
+  - `upstream fastcgi_backend` defines as `unix:/tmp/gunicorn.sock`
+- Gunicorn Configuration for Supervisord: `django-python36/conf/gunicorn.conf` is copied into the docker image at `/etc/supervisor/conf.d/gunicorn.conf`
+- Gunicorn Configuration for Django: `django-python36/gunicorn_conf.py`
+  - `bind=unix:/tmp/gunicorn.sock`
+  - `workers = multiprocessing.cpu_count() * 3`
+  - `worker_class = 'sync'`
+
+### Components Details
+
+| Component   | Version |
+| ----------- | ------: |
+| Django      | 2.1.3   |
+| Python      | 3.6.7   |
+| Nginx       | 1.15.7  |
+| supervisord | 3.2.0   |
+
+For more details see `requirements.txt`.
