@@ -1,28 +1,36 @@
-FROM python:3.6.7
+FROM ubuntu:16.04
 
 LABEL maintainer="kamolcu@gmail.com"
 
-ADD ./ /django
+ARG DEBIAN_FRONTEND=noninteractive
 
-WORKDIR /django
+RUN apt-get update -yqq && apt-get install -yqq software-properties-common wget > /dev/null
+RUN LC_ALL=C.UTF-8 add-apt-repository ppa:jonathonf/python-3.6
+RUN apt-get update -yqq > /dev/null
+RUN apt-get install -y supervisor build-essential python3.6 python3.6-dev python3-pip python3.6-venv
+RUN apt-get dist-upgrade -yqq
+RUN apt-get autoremove
+RUN mkdir -p /var/log/supervisor
+WORKDIR /tmp
+RUN wget http://nginx.org/keys/nginx_signing.key
+RUN apt-key add nginx_signing.key
+RUN echo 'deb http://nginx.org/packages/mainline/ubuntu/ '$(lsb_release -cs)' nginx' > /etc/apt/sources.list.d/nginx.list
+RUN apt-get update -yqq && apt-get install -yqq nginx
+RUN apt-get install -yqq libmysqlclient-dev
 
-RUN pip3 install -r /django/requirements.txt
+COPY conf/nginx.conf /etc/nginx/nginx.conf
+COPY conf/main.conf /etc/nginx/conf.d/default.conf
+COPY conf/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY conf/gunicorn.conf /etc/supervisor/conf.d/gunicorn.conf
 
-# System packages installation
-RUN echo "deb http://nginx.org/packages/mainline/debian/ jessie nginx" >> /etc/apt/sources.list
-RUN wget https://nginx.org/keys/nginx_signing.key -O - | apt-key add -
-RUN apt-get update && apt-get install -y nginx \
-    supervisor \
-    && rm -rf /var/lib/apt/lists/*
+ADD ./ /var/www
+WORKDIR /var/www
 
-# Nginx configuration
-RUN echo "daemon off;" >> /etc/nginx/nginx.conf
-RUN rm /etc/nginx/conf.d/default.conf
-COPY nginx.conf /etc/nginx/conf.d/nginx.conf
+RUN python3.6 -m pip install --upgrade pip
+RUN python3.6 -m pip install -r /var/www/requirements.txt
 
-# Supervisor configuration
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-COPY gunicorn.conf /etc/supervisor/conf.d/gunicorn.conf
+ENV PYTHONUNBUFFERED 1
 
 EXPOSE 80
+
 CMD ["/usr/bin/supervisord"]
