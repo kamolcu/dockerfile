@@ -1,0 +1,11 @@
+.env*
+error.log
+*.min.css
+*.min.js
+*.mwb.bak
+*error.log
+log/
+.vs_code/
+.DS_Store
+settings.json
+*pycache*
