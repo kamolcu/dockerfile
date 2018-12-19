@@ -27,7 +27,7 @@ COPY conf/php.ini ${FPM_DIR}
 COPY conf/php.ini ${CLI_DIR}
 
 # cphalcon, phalcon-devtools, composer
-ENV PHALCON_VERSION=3.4.1
+ENV PHALCON_VERSION=3.4.2
 ENV PHALCON_DEVTOOLS_VERSION=3.4.0
 
 WORKDIR /cphalcon

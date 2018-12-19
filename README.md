@@ -23,14 +23,15 @@ Collection of dockerfiles
 
 | Component               | Version |
 | ----------------------- | ------: |
-| Phalcon                 | 3.4.1   |
-| Phalcon Developer Tools | 3.4.0   |
-| Nginx                   | 1.15.6  |
-| Composer                | 1.7.3   |
-| PHPUnit                 | 6.5.13  |
+| PHP                     |  7.2.13 |
+| Phalcon                 |   3.4.2 |
+| Phalcon Developer Tools |   3.4.0 |
+| Nginx                   |  1.15.7 |
+| Composer                |   1.8.0 |
+| PHPUnit                 |  6.5.13 |
 
 
-| Configuration    | Value        |
+| Configuration    |    Value     |
 | ---------------- | :----------: |
 | Default Timezone | Asia/Bangkok |
 
@@ -201,19 +202,21 @@ Zend OPcache
 
 ### Components Details
 
-**Phalcon Version**: 3.4.1
+| Component               | Version |
+| ----------------------- | ------: |
+| PHP                     |  7.2.13 |
+| Phalcon                 |   3.4.2 |
+| Phalcon Developer Tools |   3.4.0 |
+| Nginx                   |  1.15.7 |
+| Composer                |   1.8.0 |
+| PHPUnit                 |  6.5.13 |
+| Xdebug                  |   2.6.1 |
 
-**Phalcon Developer Tools Version**: 3.4.0
 
-**Nginx Version**: 1.15.6
+| Configuration    |    Value     |
+| ---------------- | :----------: |
+| Default Timezone | Asia/Bangkok |
 
-**Composer Version**: 1.7.3
-
-**PHPUnit Version**: 6.5.13
-
-**Xdebug Version**: 2.6.1
-
-**Default Timezone**: Asia/Bangkok
 
 ### Nginx Configuration Notes
 
@@ -238,6 +241,21 @@ http {
 max_execution_time = 3600
 default_socket_timeout = 3600
 ...
+```
+
+### How to build the image
+
+```sh
+# Command Structure
+$ cd [project_location]/dockerfile/phalcon-php72-fpm-nginx-xdebug
+$ docker build --no-cache -f phalcon.dockerfile -t [your_namespace]/phalcon-php72-fpm-nginx-xdebug .
+$ docker push [your_namespace]/phalcon-php72-fpm-nginx-xdebug
+
+# This project example:
+$ cd /opt/src/dockerfile/phalcon-php72-fpm-nginx-xdebug
+$ docker build --no-cache -f phalcon.dockerfile -t kamolcu/phalcon-php72-fpm-nginx-xdebug .
+$ docker push kamolcu/phalcon-php72-fpm-nginx-xdebug
+
 ```
 
 ### Run PHPUnit with code coverage
@@ -269,9 +287,9 @@ phpunit --configuration phpunit.xml --coverage-html /opt/src/project/build/cover
 
 | Component   | Version |
 | ----------- | ------: |
-| Django      | 2.1.3   |
-| Python      | 3.6.7   |
-| Nginx       | 1.15.7  |
-| supervisord | 3.2.0   |
+| Django      |   2.1.3 |
+| Python      |   3.6.7 |
+| Nginx       |  1.15.7 |
+| supervisord |   3.2.0 |
 
 For more details see `requirements.txt`.
