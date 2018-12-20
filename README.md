@@ -30,7 +30,6 @@ Collection of dockerfiles
 | Composer                |   1.8.0 |
 | PHPUnit                 |  6.5.13 |
 
-
 | Configuration    |    Value     |
 | ---------------- | :----------: |
 | Default Timezone | Asia/Bangkok |
@@ -212,11 +211,9 @@ Zend OPcache
 | PHPUnit                 |  6.5.13 |
 | Xdebug                  |   2.6.1 |
 
-
 | Configuration    |    Value     |
 | ---------------- | :----------: |
 | Default Timezone | Asia/Bangkok |
-
 
 ### Nginx Configuration Notes
 
@@ -268,10 +265,10 @@ $ docker run --rm -v /opt/src/project:/opt/src/project \
 phpunit --configuration phpunit.xml --coverage-html /opt/src/project/build/coverage
 ```
 
-
 ## Django + Python3.6 + Nginx + Gunicorn
 
 ### Files
+
 - Dockerfile: `django-python36/django.dockerfile`
 - Nginx Configuration: `django-python36/conf/nginx.conf` is copied into the docker image at `/etc/nginx/nginx.conf`.
   - `access_log off`
@@ -293,3 +290,44 @@ phpunit --configuration phpunit.xml --coverage-html /opt/src/project/build/cover
 | supervisord |   3.2.0 |
 
 For more details see `requirements.txt`.
+
+## Flask + Python3.6 + Nginx + Gunicorn
+
+### Files
+
+- Dockerfile: `flask-python36/django.dockerfile`
+- Nginx Configuration: `flask-python36/conf/nginx.conf` is copied into the docker image at `/etc/nginx/nginx.conf`.
+  - `access_log off`
+  - `server_tokens off`
+  - `upstream fastcgi_backend` defines as `unix:/tmp/gunicorn.sock`
+- Gunicorn Configuration for Supervisord: `flask-python36/conf/gunicorn.conf` is copied into the docker image at `/etc/supervisor/conf.d/gunicorn.conf`
+- Gunicorn Configuration for Django: `flask-python36/gunicorn_conf.py`
+  - `bind=unix:/tmp/gunicorn.sock`
+  - `workers = multiprocessing.cpu_count() * 3`
+  - `worker_class = 'sync'`
+
+### Components Details
+
+| Component   | Version |
+| ----------- | ------: |
+| Flask       |   1.0.2 |
+| Python      |   3.6.7 |
+| Nginx       |  1.15.7 |
+| supervisord |   3.2.0 |
+
+For more details see `requirements.txt`.
+
+### How to build the image
+
+```sh
+# Command Structure
+$ cd [project_location]/dockerfile/flask-python36
+$ docker build --no-cache -f phalcon.dockerfile -t [your_namespace]/flask-python36 .
+$ docker push [your_namespace]/flask-python36
+
+# This project example:
+$ cd /opt/src/dockerfile/flask-python36
+$ docker build --no-cache -f flask.dockerfile -t kamolcu/flask-python36 .
+$ docker push kamolcu/flask-python36
+
+```
