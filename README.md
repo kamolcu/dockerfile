@@ -291,17 +291,32 @@ phpunit --configuration phpunit.xml --coverage-html /opt/src/project/build/cover
 
 For more details see `requirements.txt`.
 
+### How to build the image
+
+```sh
+# Command Structure
+$ cd [project_location]/dockerfile/django-python36
+$ docker build --no-cache -f phalcon.dockerfile -t [your_namespace]/django-python36 .
+$ docker push [your_namespace]/django-python36
+
+# This project example:
+$ cd /opt/src/dockerfile/django-python36
+$ docker build --no-cache -f flask.dockerfile -t kamolcu/django-python36 .
+$ docker push kamolcu/django-python36
+
+```
+
 ## Flask + Python3.6 + Nginx + Gunicorn
 
 ### Files
 
-- Dockerfile: `flask-python36/django.dockerfile`
+- Dockerfile: `flask-python36/flask.dockerfile`
 - Nginx Configuration: `flask-python36/conf/nginx.conf` is copied into the docker image at `/etc/nginx/nginx.conf`.
   - `access_log off`
   - `server_tokens off`
   - `upstream fastcgi_backend` defines as `unix:/tmp/gunicorn.sock`
 - Gunicorn Configuration for Supervisord: `flask-python36/conf/gunicorn.conf` is copied into the docker image at `/etc/supervisor/conf.d/gunicorn.conf`
-- Gunicorn Configuration for Django: `flask-python36/gunicorn_conf.py`
+- Gunicorn Configuration for Flask: `flask-python36/gunicorn_conf.py`
   - `bind=unix:/tmp/gunicorn.sock`
   - `workers = multiprocessing.cpu_count() * 3`
   - `worker_class = 'sync'`

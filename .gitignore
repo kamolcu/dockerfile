@@ -10,3 +10,4 @@ log/
 settings.json
 *pycache*
 *.code-workspace
+*.pid
