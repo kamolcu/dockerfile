@@ -23,10 +23,10 @@ Collection of dockerfiles
 
 | Component               | Version |
 | ----------------------- | ------: |
-| PHP                     |  7.2.13 |
+| PHP                     |  7.2.14 |
 | Phalcon                 |   3.4.2 |
-| Phalcon Developer Tools |   3.4.0 |
-| Nginx                   |  1.15.7 |
+| Phalcon Developer Tools |   3.4.1 |
+| Nginx                   |  1.15.8 |
 | Composer                |   1.8.0 |
 | PHPUnit                 |  6.5.13 |
 
@@ -203,10 +203,10 @@ Zend OPcache
 
 | Component               | Version |
 | ----------------------- | ------: |
-| PHP                     |  7.2.13 |
+| PHP                     |  7.2.14 |
 | Phalcon                 |   3.4.2 |
-| Phalcon Developer Tools |   3.4.0 |
-| Nginx                   |  1.15.7 |
+| Phalcon Developer Tools |   3.4.1 |
+| Nginx                   |  1.15.8 |
 | Composer                |   1.8.0 |
 | PHPUnit                 |  6.5.13 |
 | Xdebug                  |   2.6.1 |
